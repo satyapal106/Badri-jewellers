@@ -41,7 +41,7 @@
                             Featured Jewellery</a>
                     </li>
                     <li>
-                        <a href="{{url('admin/testimonial')}}"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
+                        <a href="{{url('admin/all-testimonial')}}"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i>
                             Testimonials</a>
                     </li>
                 </ul>

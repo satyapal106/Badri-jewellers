@@ -13,14 +13,19 @@ use Illuminate\Support\Facades\File;
 
 class TestimonialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+
+    public function AllTestimonial()
+    {
+        $testimonials = Testimonial::where('status', '1')->get();
+        return view('admin.Homepage.all-testimonial', compact('testimonials'));
+    }
+
     public function Testimonial(Request $request, $id = null)
     {
          if($id == ""){
             $title = 'Add Testimonial';
-            $testimonial = new Testimonial;
+            $testimonial = Testimonial::where('status', '1')->get();
             $message = 'Add Testimonial Successful';
          }else{
             $title = 'Edit Testimonial';
@@ -67,20 +72,10 @@ class TestimonialController extends Controller
             $testimonial->save();
             return redirect('admin/testimonial')->with('success_msg', $message);
          }
-        return view('admin.Homepage.testimonial')->with(compact('title'));
+         return view('admin.Homepage.testimonial')->with(compact('title', 'testimonial'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //

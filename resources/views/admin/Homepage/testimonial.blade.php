@@ -1,18 +1,18 @@
 @extends('layout.master')
 @section('style')
-<style>
-    .cke_notifications_area {
-        pointer-events: none;
-        display: none;
-    }
-</style>
+    <style>
+        .cke_notifications_area {
+            pointer-events: none;
+            display: none;
+        }
+    </style>
 @stop
 @section('body')
     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
         <h6 class="fw-semibold mb-0">Testimonial </h6>
         <ul class="d-flex align-items-center gap-2">
             <li class="fw-medium">
-                <a href="{{url('admin/dashboard')}}" class="d-flex align-items-center gap-1 hover-text-primary">
+                <a href="{{ url('admin/dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">
                     <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
                     Dashboard
                 </a>
@@ -63,7 +63,8 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description</label>
-                                <textarea class="form-control ckeditor" name="description" placeholder="Enter the Description" rows="5" name="body"></textarea>
+                                <textarea class="form-control ckeditor" name="description" placeholder="Enter the Description" rows="5"
+                                    name="body"></textarea>
                             </div>
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary-600">Submit</button>
