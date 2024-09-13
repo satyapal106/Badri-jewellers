@@ -24,6 +24,8 @@ Route::prefix('admin')->group( function() {
         Route::match(['get', 'post'], '/home-about/{id?}', [HomeAboutController::class, 'AboutIndex']);
         Route::match(['get', 'post'], '/testimonial/{id?}', [TestimonialController::class, 'Testimonial']);                                                                                                                                                   
         Route::get('/all-testimonial', [TestimonialController::class, 'AllTestimonial']);                                                                                                                                                   
+        Route::get('/delete-testimonial/{id}', [TestimonialController::class, 'DeleteTestimonial']);                                                                                                                                                   
+        Route::post('/testimonial-status', [TestimonialController::class, 'UpdateTestimonialStatus']);                                                                                                                                                   
         Route::get('logout', [AdminController::class, 'Logout']);
     });
 });

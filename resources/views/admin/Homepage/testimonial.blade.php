@@ -9,7 +9,7 @@
 @stop
 @section('body')
     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
-        <h6 class="fw-semibold mb-0">Testimonial </h6>
+        <h6 class="fw-semibold mb-0">{{$title}} </h6>
         <ul class="d-flex align-items-center gap-2">
             <li class="fw-medium">
                 <a href="{{ url('admin/dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">
@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li>-</li>
-            <li class="fw-medium">Testimonial</li>
+            <li class="fw-medium">{{$title}}</li>
         </ul>
     </div>
     <div class="row gy-4">
@@ -49,7 +49,8 @@
                     <h6 class="card-title mb-0">Testimonial</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('admin/testimonial') }}" method="POST" enctype="multipart/form-data">
+                    {{-- <form @if(empty($testimonial->id)) action="{{ url('admin/testimonial') }}" @else  action="{{ url('admin/testimonial/') }}"  @endif method="POST" enctype="multipart/form-data"> --}}
+                    <form action="{{url('admin/testimonial' . (isset($testimonial->id)? '/' . $testimonial->id : '' ))}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row gy-3">
                             {{-- <div class="col-md-4">
@@ -59,12 +60,13 @@
                             </div> --}}
                             <div class="col-md-12">
                                 <label class="form-label">Name</label>
-                                <input type="text" name="name" class="form-control" placeholder="name">
+                                <input type="text" name="name"  value="{{isset($testimonial->name) ? $testimonial->name : ''}}" class="form-control" placeholder="name">
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description</label>
-                                <textarea class="form-control ckeditor" name="description" placeholder="Enter the Description" rows="5"
-                                    name="body"></textarea>
+                                <textarea class="form-control ckeditor" name="description" placeholder="Enter the Description" rows="5" name="body">
+                                    {{isset($testimonial->description) ? $testimonial->description :''}}
+                                </textarea>
                             </div>
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary-600">Submit</button>

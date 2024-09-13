@@ -17,7 +17,7 @@ class TestimonialController extends Controller
 
     public function AllTestimonial()
     {
-        $testimonials = Testimonial::where('status', '1')->get();
+        $testimonials = Testimonial::get();
         return view('admin.Homepage.all-testimonial', compact('testimonials'));
     }
 
@@ -25,12 +25,12 @@ class TestimonialController extends Controller
     {
          if($id == ""){
             $title = 'Add Testimonial';
-            $testimonial = Testimonial::where('status', '1')->get();
+            $testimonial = new Testimonial();
             $message = 'Add Testimonial Successful';
          }else{
             $title = 'Edit Testimonial';
             $testimonial = Testimonial::find($id);
-            $message = 'Update Testimonial Successful';
+            $message = 'Testimonial Updated Successfully';
          }
 
          if($request->isMethod('POST')){
@@ -70,46 +70,37 @@ class TestimonialController extends Controller
                 $data['image'] = $path.$filename;
             }
             $testimonial->save();
-            return redirect('admin/testimonial')->with('success_msg', $message);
+
+            if($id==""){
+                return redirect()->back()->with('success_msg', $message);
+            }else{
+                return redirect('admin/all-testimonial')->with('success_msg', $message);
+            }
+           
          }
          return view('admin.Homepage.testimonial')->with(compact('title', 'testimonial'));
     }
 
 
-    public function store(Request $request)
+    public function DeleteTestimonial($id)
     {
-        //
+       Testimonial::where('id', $id)->delete();
+       return redirect()->back()->with('success_msg', 'Testimonial deleted successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Testimonial $testimonial)
-    {
-        //
-    }
+    public function UpdateTestimonialStatus(Request $request){
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Testimonial $testimonial)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Testimonial $testimonial)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Testimonial $testimonial)
-    {
-        //
+        if($request->ajax()){
+            $data = $request->all();
+           //echo '<pre></pre>'; print_r($data);exit();
+            if($data['status'] == 'active'){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+            Testimonial::where('id', $data['page_id'])->update(['status' => $status]);
+            return response()->json(['status' => $status, 'page_id' => $data['page_id'], 'msg' => 'Status updated successfully']);
+            //echo '<pre></pre>'; print_r($data);exit();
+        }
     }
 }
